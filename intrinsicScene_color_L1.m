@@ -1,4 +1,6 @@
 function [I,R]=intrinsicScene_color_L1(src,depth_data, normal_data, shadowmask, param)
+    addpath('./utils/matlab');
+    addpath('./utils/npy-matlab/npy-matlab');
     nn_num_s = 20;
     if param.NonLocal 
         lambda_Ns = 0.005;
