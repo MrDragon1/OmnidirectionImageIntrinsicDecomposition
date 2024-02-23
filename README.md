@@ -4,7 +4,14 @@ This is the official implementation of our TVCG paper **"Intrinsic Omnidirection
 
 ## Usage
 
-To generate the results of our paper, just run *main.m*. The results will be saved in *img/results* folder.
+To generate the results of our paper quickly:
+```bash
+git clone git@github.com:MrDragon1/OmnidirectionImageIntrinsicDecomposition.git
+
+cd OmnidirectionImageIntrinsicDecomposition
+```
+
+Then run *main.m* with Matlab (tested on Matlab R2022a). Make sure the current folder contains *main.m*. The results will be saved in *img/results* folder.
 
 If you want to run with your own image, please the following steps:
 
