@@ -1,14 +1,11 @@
 function [Ref,Shading,shadowmask,lightsourcemask,lightcolor] = Our(path, param)
-    addpath('utils/matlab');
-    addpath('utils/npy-matlab/npy-matlab');
-    
     im=im2double(imread([path '\input.png']));
     im = imresize(im,[512,1024]);
 
     depth_data = readNPY([path '\depth.npy']);
     depth_data = double(im2gray(depth_data));
     depth_data = imresize(depth_data,[512,1024]);
- 
+
     segment = imread([path '\segment.png']);
     segment = imresize(segment,[512,1024]);
 
@@ -18,14 +15,14 @@ function [Ref,Shading,shadowmask,lightsourcemask,lightcolor] = Our(path, param)
 
     normal_data = imresize(normal_data,[512,1024]);
     depth_data = imresize(depth_data,[512,1024]);
-    
+
     im(im>1) = 1;im(im<0) = 0;
 
     gray = im2gray(im);
     [h,w,~] = size(im);
-    
+
     [shadowmask,lightsourcemask,lightcolor]= getShadowMask(im,depth_data,normal_data,segment);
-    
+
     ceiling_color = [120, 120, 80];
     ceiling_mask = (segment(:,:,1) == ceiling_color(1)) & ...
            (segment(:,:,2) == ceiling_color(2)) & ...
@@ -46,7 +43,7 @@ function [Ref,Shading,shadowmask,lightsourcemask,lightcolor] = Our(path, param)
     floor1 = zeros(size(segment, 1), size(segment, 2));
     floor1(floor_mask | rug_mask) = 1;
     other = 1 - (ceiling + floor1);
-    
+
     Mceiling = exp((sum(gray.*ceiling,'all') / sum(ceiling,'all')) - 1).^2;
     Mfloor = exp(sum(gray.*floor1,'all') / sum(floor1,'all')).^2;
     Mother = (sum(gray.*other,'all') / sum(other,'all'));
@@ -76,11 +73,11 @@ function [camera_points] = get_pointcloud(depth_data)
     [pixel_x, pixel_y] = meshgrid(0:w-1,0:h-1);
     theta = pixel_x * 2.0 * pi / w - pi;
     phi = (h - pixel_y-0.5) * pi / h - pi / 2;
-    
+
     camera_points_x = depth_data .* cos(phi) .* sin(theta);
     camera_points_y = depth_data .* sin(phi);
     camera_points_z = depth_data .* cos(phi) .* cos(theta);
-    
+
     camera_points = cat(3,camera_points_x,camera_points_y,camera_points_z);
 end
 
