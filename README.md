@@ -11,7 +11,7 @@ git clone git@github.com:MrDragon1/OmnidirectionImageIntrinsicDecomposition.git
 cd OmnidirectionImageIntrinsicDecomposition
 ```
 
-Then run *main.m* with Matlab (tested on Matlab R2022a). Make sure the current folder contains *main.m*. The results will be saved in *img/results* folder.
+Then run *main.m* with Matlab (tested on Matlab R2022a). Make sure the current folder contains *main.m*. The results of Fig.7 and Fig.8 in our paper will be reproduced and saved in *img/results* folder.
 
 If you want to run with your own image, please the following steps:
 
